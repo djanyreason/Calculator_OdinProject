@@ -50,9 +50,9 @@ function updateDisplay(newValue) {
     return;
   }
 
-  if(Number.isInteger(newValue)) { // If an integer, no transformation necessary
+  if(Number.isInteger(newValue)) { // If integer, no transformation necessary
     displayDiv.innerText = newValue.toString();
-  } else if (Math.abs(newValue) >= 999999.5) { // If at least 7 digits, no decimals
+  } else if (Math.abs(newValue) >= 999999.5) { // If at 7 digits, no decimals
     displayDiv.innerText = Math.round(newValue).toString();
   } else { // Short non-integer, need to ensure 1 decimal place
     const decimalPlace = Math.abs(Math.round(newValue * 10) % 10);
@@ -69,3 +69,38 @@ function updateDisplay(newValue) {
     }
   }
 }
+
+// Special updateDisplay for when a decimal point is clicked
+// Currently no functionality
+function updateDisplayDecimal() {
+  return;
+}
+
+// Function that handles an onClick event for a number button. Takes one string
+// parameter, the number that is clicked. It adds that number to the end of the
+// display on the calculator. 
+// Does not update if the display cannot be further updated.
+function numberClick(num) {
+  if(num === '.') {
+    updateDisplayDecimal();
+    return
+  }
+
+  const currNum = parseInt(displayDiv.innerText);
+
+  //Do not update if current entry is not an integer (max decimal places is 1)
+  if(currNum != parseFloat(displayDiv.innerText)) return;
+
+  //Do not update if current entry is 8 digits already
+  if(currNum > 9999999) return;
+
+  updateDisplay((currNum * 10) + parseInt(num));
+
+}
+
+//Add onclick to number buttons
+const numberButtons = document.getElementsByClassName("number");
+for(let n = 0; n < numberButtons.length; n++) {
+  numberButtons[n].onclick = () => numberClick(numberButtons[n].innerText);
+}
+
