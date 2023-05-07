@@ -190,3 +190,26 @@ function plusMinus() {
 }
 
 document.getElementById("+-").onclick = plusMinus;
+
+// Function that handles onclick for Del button: deletes the number entered
+function delButton() {
+  if(displayDiv.innerText === "ERROR") return; // If in error state, exit
+  if(inputRestart === true) return; // If display is a result, do not change
+
+  // if last entry is a decimal point, get rid of the decimal point
+  if(displayDiv.innerText[displayDiv.innerText.length - 1] === ".") {
+    updateDisplay(parseInt(displayDiv.innerText));
+  } else if ( parseInt(displayDiv.innerText) === // If the number is an integer
+              parseFloat(displayDiv.innerText)) {
+    if(displayDiv.innerText[0] === "-") { // If negative, round up
+      updateDisplay(Math.ceil(parseInt(displayDiv.innerText) / 10));
+    } else { // If positive, round down
+      updateDisplay(Math.floor(parseInt(displayDiv.innerText) / 10));
+    }
+  } else { // If the number has a decimal
+    updateDisplay(parseInt(displayDiv.innerText)); // Get rid of decimal
+    updateDisplayDecimal(); // Keep the decimal point
+  }
+}
+
+document.getElementById("del").onclick = delButton;
