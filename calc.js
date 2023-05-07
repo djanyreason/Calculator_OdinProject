@@ -180,3 +180,13 @@ function allClear() {
 }
 
 document.getElementById("clear").onclick = allClear;
+
+// Function that handles onclick for +/- button: multiplies display by -1
+function plusMinus() {
+  if(displayDiv.innerText === "ERROR") return; // If in error state, exit
+  if(inputRestart === true) return; // If display is a result, do not change
+
+  updateDisplay(-1 * parseFloat(displayDiv.innerText));
+}
+
+document.getElementById("+-").onclick = plusMinus;
