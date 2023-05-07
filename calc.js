@@ -126,7 +126,7 @@ function operatorClick(operator) {
   }
 }
 
-//Add onclick to number buttons
+//Add onclick to operator buttons
 const operatorButtons = document.getElementsByClassName("operator");
 for(let n = 0; n < operatorButtons.length; n++) {
   operatorButtons[n].onclick = () => operatorClick(operatorButtons[n].innerText);
@@ -168,3 +168,15 @@ for(let n = 0; n < numberButtons.length; n++) {
   numberButtons[n].onclick = () => numberClick(numberButtons[n].innerText);
 }
 
+
+// Functions for making the function buttons work
+
+// Function than handles onclick for AC button: resets memory and clears display
+function allClear() {
+  updateDisplay(0);
+  total = 0;
+  currentOperator = "";
+  inputRestart = true;
+}
+
+document.getElementById("clear").onclick = allClear;
