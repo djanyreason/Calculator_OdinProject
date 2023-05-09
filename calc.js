@@ -38,10 +38,17 @@ function updateDisplay(newValue) {
   }
 }
 
-// Special updateDisplay for when a decimal point is clicked
-// Currently no functionality
+// Special updateDisplay for when a decimal point is clicked; if there is no
+// decimal point in the display, and the display has fewer than 7 digits, adds
+// a decimal point to the end of the display
 function updateDisplayDecimal() {
-  return;
+  if((parseInt(displayDiv.innerText) != parseFloat(displayDiv.innerText)) ||
+     (displayDiv.innerText[displayDiv.innerText.length - 1] === '.') ||
+     (Math.abs(parseInt(displayDiv.innerText)) > 999999)) {
+    return;
+  }
+  
+  displayDiv.innerText = displayDiv.innerText + '.';
 }
 
 
@@ -158,7 +165,13 @@ function numberClick(num) {
   //Do not update if current entry is 8 digits already
   if(currNum > 9999999) return;
 
-  updateDisplay((currNum * 10) + parseInt(num));
+  //If the last entry was a decimal point, the new number is tenths
+  if(displayDiv.innerText[displayDiv.innerText.length-1] === '.') {
+    if(parseInt(num) === 0) { return; } // Don't allow 0 after decimal point
+    updateDisplay((currNum + (parseInt(num) / 10)));
+  } else {
+    updateDisplay((currNum * 10) + parseInt(num));
+  }
 
 }
 
