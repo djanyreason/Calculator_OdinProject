@@ -60,3 +60,7 @@ div {
 .operator {
   background-color: lightsalmon;
 }
+
+button:active {
+  border-style: inset;
+}
