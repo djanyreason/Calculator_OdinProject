@@ -226,3 +226,35 @@ function delButton() {
 }
 
 document.getElementById("del").onclick = delButton;
+
+
+// Functionality for keyboard input
+
+// Function to handle event listener for keypress; checks to see if the keyCode
+// of the keypress corresponds to any of the calculator buttons, and if so
+// changes the style of that button and calls its onclick function
+function handleKeypress (event) {
+  const keyedButton = document.querySelector("button[data-keycode='" 
+                                              + event.keyCode + "']");
+
+  if(!keyedButton) return;
+
+  keyedButton.classList.add("keyboardPress");
+  keyedButton.onclick();
+}
+
+// Function to handle event listener for key release; checks to see if the 
+// keyCode of the keypress corresponds to any of the calculator buttons, and if 
+// so resets the style of that button
+function handleKeyRelease (event) {
+  const keyedButton = document.querySelector("button[data-keycode='" 
+                                              + event.keyCode + "']");
+
+  if(!keyedButton) return;
+
+  keyedButton.classList.remove("keyboardPress");
+}
+
+// Add event listeners for keyboard entry
+window.addEventListener('keydown', e => handleKeypress(e));
+window.addEventListener('keyup', e => handleKeyRelease(e));
