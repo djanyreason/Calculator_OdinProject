@@ -51,7 +51,6 @@ function updateDisplayDecimal() {
   displayDiv.innerText = displayDiv.innerText + '.';
 }
 
-
 // Functions for making the operator buttons work
 
 // Returns sum of 2 parameters
@@ -237,10 +236,15 @@ function handleKeypress (event) {
   const keyedButton = document.querySelector("button[data-keycode='" 
                                               + event.keyCode + "']");
 
-  if(!keyedButton) return;
+  if(!keyedButton) {
+    event.preventDefault();
+    return;
+  }
 
   keyedButton.classList.add("keyboardPress");
   keyedButton.onclick();
+
+  event.preventDefault();
 }
 
 // Function to handle event listener for key release; checks to see if the 
@@ -250,9 +254,14 @@ function handleKeyRelease (event) {
   const keyedButton = document.querySelector("button[data-keycode='" 
                                               + event.keyCode + "']");
 
-  if(!keyedButton) return;
+  if(!keyedButton) {
+    event.preventDefault();
+    return;
+  }
 
   keyedButton.classList.remove("keyboardPress");
+
+  event.preventDefault();
 }
 
 // Add event listeners for keyboard entry
